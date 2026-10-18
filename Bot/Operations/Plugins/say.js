@@ -6,12 +6,12 @@ const name = new Error().stack
     ?.trim()
     .match(/at (\w+)/)?.[1];
 
-const debug = Boolean(information.bot.debug[name]);
+const debug = information.bot.debug[name] === "true";
 
 export async function say(client) {
     if(debug) console.log(`[${name.toUpperCase()}] Function begun`);
     client.on('messageCreate', async (m) => {
-    if(debug) console.log(`[${name.toUpperCase()}] Listener received`);
+        if(debug) console.log(`[${name.toUpperCase()}] Listener received`);
         if(m.content.startsWith(information.bot.prefix + 'say')) {
             if(m.member.roles.cache.has(information.roles.staff)) {
                 const toSay = m.content.slice(1 + "say".length).trim()
